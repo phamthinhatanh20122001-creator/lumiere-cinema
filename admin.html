@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LUMIÈRE ADMIN</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="admin.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="logo">
+        LUMIÈRE
+        <span>ADMIN</span>
+    </div>
+
+    <ul>
+        <li class="active">📊 Dashboard</li>
+        <li>🎬 Quản lý phim</li>
+        <li>🕒 Suất chiếu</li>
+        <li>🏢 Rạp chiếu</li>
+        <li>🎟 Vé bán</li>
+        <li>👥 Khách hàng</li>
+        <li>📈 Thống kê</li>
+    </ul>
+
+</div>
+
+<div class="main">
+
+    <div class="topbar">
+        <h1>Dashboard</h1>
+
+        <button class="logout-btn">
+            Đăng xuất
+        </button>
+    </div>
+
+    <div class="stats">
+
+        <div class="card">
+            <h3>125M</h3>
+            <p>Doanh thu</p>
+        </div>
+
+        <div class="card">
+            <h3>1245</h3>
+            <p>Vé đã bán</p>
+        </div>
+
+        <div class="card">
+            <h3>356</h3>
+            <p>Khách hàng</p>
+        </div>
+
+        <div class="card">
+            <h3>15</h3>
+            <p>Phim đang chiếu</p>
+        </div>
+
+    </div>
+
+    <div class="chart-box">
+        <h2>Doanh thu theo tháng</h2>
+        <canvas id="revenueChart"></canvas>
+    </div>
+
+    <div class="table-box">
+
+        <div class="table-header">
+            <h2>Danh sách phim</h2>
+
+            <button class="add-btn">
+                + Thêm phim
+            </button>
+        </div>
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Tên phim</th>
+                    <th>Thể loại</th>
+                    <th>Thời lượng</th>
+                    <th>Trạng thái</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Avatar 3</td>
+                    <td>Khoa học viễn tưởng</td>
+                    <td>180 phút</td>
+                    <td>
+                        <span class="status">Đang chiếu</span>
+                    </td>
+                    <td>
+                        <button class="edit">Sửa</button>
+                        <button class="delete">Xóa</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Spider-Man</td>
+                    <td>Hành động</td>
+                    <td>145 phút</td>
+                    <td>
+                        <span class="status">Đang chiếu</span>
+                    </td>
+                    <td>
+                        <button class="edit">Sửa</button>
+                        <button class="delete">Xóa</button>
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>
