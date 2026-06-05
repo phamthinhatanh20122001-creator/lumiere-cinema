@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE — Rạp Chiếu Phim</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <a href="index.html" class="logo">LUMI<span>ÈRE</span></a>
+  <ul>
+    <li><a href="#section-movies"   class="nav-link">Phim</a></li>
+    <li><a href="#section-showtime" class="nav-link">Suất chiếu</a></li>
+    <li><a href="#section-cinemas"  class="nav-link">Rạp</a></li>
+    <li><a href="#section-promo"    class="nav-link">Ưu đãi</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-user" id="nav-user">
+      <div class="avatar" id="nav-avatar"></div>
+      <span class="user-name" id="nav-name"></span>
+      <button id="logout-btn" class="nav-btn ghost sm">Đăng xuất</button>
+    </div>
+    <a href="login.html" class="nav-btn" id="nav-login-btn">Đăng nhập</a>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#section-movies"   onclick="closeMobile()">Phim</a>
+  <a href="#section-showtime" onclick="closeMobile()">Suất chiếu</a>
+  <a href="#section-cinemas"  onclick="closeMobile()">Rạp</a>
+  <a href="#section-promo"    onclick="closeMobile()">Ưu đãi</a>
+  <a href="login.html" class="mobile-login">Đăng nhập</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="film-strip">
+    <div class="film-strip-inner">
+      <div class="featured-poster"></div>
+      <div class="perforations">
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+        <div class="perf"></div><div class="perf"></div><div class="perf"></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-label">Phim nổi bật tuần này</div>
+    <h1>Vùng<br><em>Tối Tăm</em></h1>
+    <div class="hero-meta">
+      <span><span class="dot"></span>Hành động · Viễn tưởng</span>
+      <span><span class="dot"></span>148 phút</span>
+      <span><span class="dot"></span>T18</span>
+    </div>
+    <div class="cta-row">
+      <button class="btn-primary" onclick="openSeatModal('Vùng Tối Tăm','20:30','Thứ Sáu, 06 tháng 6')">Đặt vé ngay</button>
+      <button class="btn-secondary" onclick="openTrailer('dQw4w9WgXcQ','Vùng Tối Tăm')">
+        <span class="play-icon">▶</span> Xem trailer
+      </button>
+    </div>
+  </div>
+  <!-- hero film dots navigation -->
+  <div class="hero-dots">
+    <span class="hero-dot active"></span>
+    <span class="hero-dot"></span>
+    <span class="hero-dot"></span>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>PHIM MỚI</span><span class="sep">✦</span>
+    <span>ĐẶT VÉ TRỰC TUYẾN</span><span class="sep">✦</span>
+    <span>DOLBY ATMOS</span><span class="sep">✦</span>
+    <span>IMAX 4K</span><span class="sep">✦</span>
+    <span>COMBO BẮP NƯỚC ƯU ĐÃI</span><span class="sep">✦</span>
+    <span>PHIM MỚI</span><span class="sep">✦</span>
+    <span>ĐẶT VÉ TRỰC TUYẾN</span><span class="sep">✦</span>
+    <span>DOLBY ATMOS</span><span class="sep">✦</span>
+    <span>IMAX 4K</span><span class="sep">✦</span>
+    <span>COMBO BẮP NƯỚC ƯU ĐÃI</span><span class="sep">✦</span>
+    <span>PHIM MỚI</span><span class="sep">✦</span>
+    <span>ĐẶT VÉ TRỰC TUYẾN</span><span class="sep">✦</span>
+    <span>DOLBY ATMOS</span><span class="sep">✦</span>
+    <span>IMAX 4K</span><span class="sep">✦</span>
+    <span>COMBO BẮP NƯỚC ƯU ĐÃI</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<!-- ===================================================================
+     SECTION: PHIM
+     =================================================================== -->
+<section class="movies-section" id="section-movies">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Đang chiếu</div>
+      <h2>Phim <em>nổi bật</em></h2>
+    </div>
+    <div class="movie-filter-tabs">
+      <button class="filter-tab active" data-filter="all">Tất cả</button>
+      <button class="filter-tab" data-filter="showing">Đang chiếu</button>
+      <button class="filter-tab" data-filter="upcoming">Sắp chiếu</button>
+    </div>
+  </div>
+
+  <div class="movies-grid" id="movies-grid">
+
+    <div class="movie-card" data-status="showing">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&q=80" alt="Bóng Tối Vĩnh Cửu">
+        <div class="badge red">Mới</div>
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('dQw4w9WgXcQ','Bóng Tối Vĩnh Cửu')">▶ Trailer</button>
+          <button class="quick-book" onclick="openSeatModal('Bóng Tối Vĩnh Cửu','19:00','Thứ Tư, 04 tháng 6')">Đặt vé</button>
+        </div>
+      </div>
+      <div class="movie-title">Bóng Tối Vĩnh Cửu</div>
+      <div class="movie-info"><span class="rating">★ 8.4</span><span>Kinh dị · 112 phút · T18</span></div>
+    </div>
+
+    <div class="movie-card" data-status="showing">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&q=80" alt="Thiên Đường Cuối Cùng">
+        <div class="badge gold">Bán chạy</div>
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('ScMzIvxBSi4','Thiên Đường Cuối Cùng')">▶ Trailer</button>
+          <button class="quick-book" onclick="openSeatModal('Thiên Đường Cuối Cùng','21:15','Thứ Tư, 04 tháng 6')">Đặt vé</button>
+        </div>
+      </div>
+      <div class="movie-title">Thiên Đường Cuối Cùng</div>
+      <div class="movie-info"><span class="rating">★ 9.1</span><span>Tâm lý · 135 phút · T13</span></div>
+    </div>
+
+    <div class="movie-card" data-status="showing">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&q=80" alt="Chiến Binh Thời Gian">
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('2m1drlOZSDw','Chiến Binh Thời Gian')">▶ Trailer</button>
+          <button class="quick-book" onclick="openSeatModal('Chiến Binh Thời Gian','17:45','Thứ Tư, 04 tháng 6')">Đặt vé</button>
+        </div>
+      </div>
+      <div class="movie-title">Chiến Binh Thời Gian</div>
+      <div class="movie-info"><span class="rating">★ 7.8</span><span>Hành động · 148 phút · T18</span></div>
+    </div>
+
+    <div class="movie-card" data-status="upcoming">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=400&q=80" alt="Mùa Hè Năm Ấy">
+        <div class="badge blue">Sắp chiếu</div>
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('vo9fxd5neHQ','Mùa Hè Năm Ấy')">▶ Trailer</button>
+          <button class="quick-book upcoming-notify" onclick="notify('Mùa Hè Năm Ấy')">Nhắc tôi</button>
+        </div>
+      </div>
+      <div class="movie-title">Mùa Hè Năm Ấy</div>
+      <div class="movie-info"><span class="rating">★ 8.7</span><span>Lãng mạn · 106 phút · P</span></div>
+    </div>
+
+    <div class="movie-card" data-status="showing">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=400&q=80" alt="Huyền Thoại Đỏ">
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('dQw4w9WgXcQ','Huyền Thoại Đỏ')">▶ Trailer</button>
+          <button class="quick-book" onclick="openSeatModal('Huyền Thoại Đỏ','20:00','Thứ Năm, 05 tháng 6')">Đặt vé</button>
+        </div>
+      </div>
+      <div class="movie-title">Huyền Thoại Đỏ</div>
+      <div class="movie-info"><span class="rating">★ 8.0</span><span>Phiêu lưu · 122 phút · T13</span></div>
+    </div>
+
+    <div class="movie-card" data-status="upcoming">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=400&q=80" alt="Đêm Cuối Cùng">
+        <div class="badge blue">Sắp chiếu</div>
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('dQw4w9WgXcQ','Đêm Cuối Cùng')">▶ Trailer</button>
+          <button class="quick-book upcoming-notify" onclick="notify('Đêm Cuối Cùng')">Nhắc tôi</button>
+        </div>
+      </div>
+      <div class="movie-title">Đêm Cuối Cùng</div>
+      <div class="movie-info"><span class="rating">★ —</span><span>Kinh dị · 118 phút · T16</span></div>
+    </div>
+
+    <div class="movie-card" data-status="showing">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=400&q=80" alt="Ngọn Lửa Phương Nam">
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('dQw4w9WgXcQ','Ngọn Lửa Phương Nam')">▶ Trailer</button>
+          <button class="quick-book" onclick="openSeatModal('Ngọn Lửa Phương Nam','15:30','Thứ Tư, 04 tháng 6')">Đặt vé</button>
+        </div>
+      </div>
+      <div class="movie-title">Ngọn Lửa Phương Nam</div>
+      <div class="movie-info"><span class="rating">★ 7.5</span><span>Tình cảm · 98 phút · P</span></div>
+    </div>
+
+    <div class="movie-card" data-status="upcoming">
+      <div class="movie-poster">
+        <img src="https://images.unsplash.com/photo-1560109947-543149eceb16?w=400&q=80" alt="Giấc Mơ Xanh">
+        <div class="badge blue">Sắp chiếu</div>
+        <div class="poster-overlay">
+          <button class="poster-trailer" onclick="openTrailer('dQw4w9WgXcQ','Giấc Mơ Xanh')">▶ Trailer</button>
+          <button class="quick-book upcoming-notify" onclick="notify('Giấc Mơ Xanh')">Nhắc tôi</button>
+        </div>
+      </div>
+      <div class="movie-title">Giấc Mơ Xanh</div>
+      <div class="movie-info"><span class="rating">★ —</span><span>Hoạt hình · 92 phút · P</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================================================================
+     SECTION: SUẤT CHIẾU
+     =================================================================== -->
+<section class="showtimes-section" id="section-showtime">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Lịch chiếu</div>
+      <h2>Suất chiếu <em>hôm nay</em></h2>
+    </div>
+  </div>
+
+  <!-- Cinema filter -->
+  <div class="cinema-filter-row">
+    <button class="cinema-filter active" data-cinema="all">Tất cả rạp</button>
+    <button class="cinema-filter" data-cinema="hk">Lumière Hoàn Kiếm</button>
+    <button class="cinema-filter" data-cinema="td">Lumière Tây Đô</button>
+    <button class="cinema-filter" data-cinema="hbt">Lumière Hai Bà Trưng</button>
+  </div>
+
+  <div class="date-tabs" id="date-tabs">
+    <button class="date-tab active" data-date="04/06"><span class="day">Hôm nay</span><span class="num">04</span></button>
+    <button class="date-tab" data-date="05/06"><span class="day">Thứ Năm</span><span class="num">05</span></button>
+    <button class="date-tab" data-date="06/06"><span class="day">Thứ Sáu</span><span class="num">06</span></button>
+    <button class="date-tab" data-date="07/06"><span class="day">Thứ Bảy</span><span class="num">07</span></button>
+    <button class="date-tab" data-date="08/06"><span class="day">Chủ Nhật</span><span class="num">08</span></button>
+    <button class="date-tab" data-date="09/06"><span class="day">Thứ Hai</span><span class="num">09</span></button>
+  </div>
+
+  <div id="showtime-list">
+    <div class="showtime-row" data-cinema="hk">
+      <div class="movie-thumb">
+        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=80&q=80" alt="">
+        <div class="movie-thumb-info">
+          <h4>Bóng Tối Vĩnh Cửu</h4>
+          <p>Hoàn Kiếm · P1 · Dolby</p>
+        </div>
+      </div>
+      <div class="times-list">
+        <button class="time-btn" onclick="openSeatModal('Bóng Tối Vĩnh Cửu','10:00','Thứ Tư, 04 tháng 6')">10:00<span class="seats">68 ghế</span></button>
+        <button class="time-btn almost-full" onclick="openSeatModal('Bóng Tối Vĩnh Cửu','13:30','Thứ Tư, 04 tháng 6')">13:30<span class="seats">12 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Bóng Tối Vĩnh Cửu','16:00','Thứ Tư, 04 tháng 6')">16:00<span class="seats">51 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Bóng Tối Vĩnh Cửu','19:00','Thứ Tư, 04 tháng 6')">19:00<span class="seats">84 ghế</span></button>
+        <button class="time-btn almost-full" onclick="openSeatModal('Bóng Tối Vĩnh Cửu','22:15','Thứ Tư, 04 tháng 6')">22:15<span class="seats">8 ghế</span></button>
+      </div>
+    </div>
+    <div class="showtime-row" data-cinema="hk">
+      <div class="movie-thumb">
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=80&q=80" alt="">
+        <div class="movie-thumb-info">
+          <h4>Thiên Đường Cuối Cùng</h4>
+          <p>Hoàn Kiếm · P2 · IMAX</p>
+        </div>
+      </div>
+      <div class="times-list">
+        <button class="time-btn" onclick="openSeatModal('Thiên Đường Cuối Cùng','11:15','Thứ Tư, 04 tháng 6')">11:15<span class="seats">92 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Thiên Đường Cuối Cùng','14:45','Thứ Tư, 04 tháng 6')">14:45<span class="seats">77 ghế</span></button>
+        <button class="time-btn almost-full" onclick="openSeatModal('Thiên Đường Cuối Cùng','18:00','Thứ Tư, 04 tháng 6')">18:00<span class="seats">5 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Thiên Đường Cuối Cùng','21:15','Thứ Tư, 04 tháng 6')">21:15<span class="seats">60 ghế</span></button>
+      </div>
+    </div>
+    <div class="showtime-row" data-cinema="td">
+      <div class="movie-thumb">
+        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=80&q=80" alt="">
+        <div class="movie-thumb-info">
+          <h4>Chiến Binh Thời Gian</h4>
+          <p>Tây Đô · P1 · 4DX</p>
+        </div>
+      </div>
+      <div class="times-list">
+        <button class="time-btn" onclick="openSeatModal('Chiến Binh Thời Gian','09:30','Thứ Tư, 04 tháng 6')">09:30<span class="seats">45 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Chiến Binh Thời Gian','13:00','Thứ Tư, 04 tháng 6')">13:00<span class="seats">38 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Chiến Binh Thời Gian','17:45','Thứ Tư, 04 tháng 6')">17:45<span class="seats">72 ghế</span></button>
+        <button class="time-btn almost-full" onclick="openSeatModal('Chiến Binh Thời Gian','21:30','Thứ Tư, 04 tháng 6')">21:30<span class="seats">11 ghế</span></button>
+      </div>
+    </div>
+    <div class="showtime-row" data-cinema="hbt">
+      <div class="movie-thumb">
+        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=80&q=80" alt="">
+        <div class="movie-thumb-info">
+          <h4>Huyền Thoại Đỏ</h4>
+          <p>Hai Bà Trưng · P2 · Dolby</p>
+        </div>
+      </div>
+      <div class="times-list">
+        <button class="time-btn" onclick="openSeatModal('Huyền Thoại Đỏ','10:30','Thứ Tư, 04 tháng 6')">10:30<span class="seats">55 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Huyền Thoại Đỏ','14:00','Thứ Tư, 04 tháng 6')">14:00<span class="seats">80 ghế</span></button>
+        <button class="time-btn almost-full" onclick="openSeatModal('Huyền Thoại Đỏ','20:00','Thứ Tư, 04 tháng 6')">20:00<span class="seats">9 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Huyền Thoại Đỏ','22:45','Thứ Tư, 04 tháng 6')">22:45<span class="seats">42 ghế</span></button>
+      </div>
+    </div>
+    <div class="showtime-row" data-cinema="td">
+      <div class="movie-thumb">
+        <img src="https://images.unsplash.com/photo-1505686994434-e3cc5abf1330?w=80&q=80" alt="">
+        <div class="movie-thumb-info">
+          <h4>Ngọn Lửa Phương Nam</h4>
+          <p>Tây Đô · P3 · Standard</p>
+        </div>
+      </div>
+      <div class="times-list">
+        <button class="time-btn" onclick="openSeatModal('Ngọn Lửa Phương Nam','11:00','Thứ Tư, 04 tháng 6')">11:00<span class="seats">62 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Ngọn Lửa Phương Nam','15:30','Thứ Tư, 04 tháng 6')">15:30<span class="seats">47 ghế</span></button>
+        <button class="time-btn" onclick="openSeatModal('Ngọn Lửa Phương Nam','19:45','Thứ Tư, 04 tháng 6')">19:45<span class="seats">71 ghế</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     SECTION: RẠP
+     =================================================================== -->
+<section class="cinemas-section" id="section-cinemas">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Hệ thống rạp</div>
+      <h2>Rạp <em>chiếu phim</em></h2>
+    </div>
+  </div>
+
+  <div class="cinemas-grid">
+
+    <div class="cinema-card">
+      <div class="cinema-img">
+        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=600&q=80" alt="Hoàn Kiếm">
+        <div class="cinema-tag">Flagship</div>
+      </div>
+      <div class="cinema-body">
+        <div class="cinema-name">Lumière Hoàn Kiếm</div>
+        <div class="cinema-addr">📍 36 Hàng Bài, Hoàn Kiếm, Hà Nội</div>
+        <div class="cinema-specs">
+          <span>8 phòng chiếu</span>
+          <span>IMAX · Dolby · 4DX</span>
+          <span>1.200 ghế</span>
+        </div>
+        <div class="cinema-amenities">
+          <span class="amenity">🍿 Bar & Café</span>
+          <span class="amenity">🅿 Bãi xe</span>
+          <span class="amenity">♿ Tiếp cận</span>
+          <span class="amenity">👑 VIP Lounge</span>
+        </div>
+        <div class="cinema-hours">Mở cửa: 08:00 – 24:00 hàng ngày</div>
+        <div class="cinema-actions">
+          <button class="btn-primary sm" onclick="scrollToShowtime('hk')">Xem suất chiếu</button>
+          <a href="#" class="btn-ghost sm">Chỉ đường</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cinema-card">
+      <div class="cinema-img">
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&q=80" alt="Tây Đô">
+      </div>
+      <div class="cinema-body">
+        <div class="cinema-name">Lumière Tây Đô</div>
+        <div class="cinema-addr">📍 123 Giảng Võ, Ba Đình, Hà Nội</div>
+        <div class="cinema-specs">
+          <span>6 phòng chiếu</span>
+          <span>Dolby · 4DX</span>
+          <span>900 ghế</span>
+        </div>
+        <div class="cinema-amenities">
+          <span class="amenity">🍿 Snack Bar</span>
+          <span class="amenity">🅿 Bãi xe</span>
+          <span class="amenity">♿ Tiếp cận</span>
+        </div>
+        <div class="cinema-hours">Mở cửa: 09:00 – 23:30 hàng ngày</div>
+        <div class="cinema-actions">
+          <button class="btn-primary sm" onclick="scrollToShowtime('td')">Xem suất chiếu</button>
+          <a href="#" class="btn-ghost sm">Chỉ đường</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cinema-card">
+      <div class="cinema-img">
+        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&q=80" alt="Hai Bà Trưng">
+      </div>
+      <div class="cinema-body">
+        <div class="cinema-name">Lumière Hai Bà Trưng</div>
+        <div class="cinema-addr">📍 458 Bạch Mai, Hai Bà Trưng, Hà Nội</div>
+        <div class="cinema-specs">
+          <span>5 phòng chiếu</span>
+          <span>Standard · Dolby</span>
+          <span>720 ghế</span>
+        </div>
+        <div class="cinema-amenities">
+          <span class="amenity">🍿 Snack Bar</span>
+          <span class="amenity">♿ Tiếp cận</span>
+        </div>
+        <div class="cinema-hours">Mở cửa: 09:00 – 23:00 hàng ngày</div>
+        <div class="cinema-actions">
+          <button class="btn-primary sm" onclick="scrollToShowtime('hbt')">Xem suất chiếu</button>
+          <a href="#" class="btn-ghost sm">Chỉ đường</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Technology strip -->
+  <div class="tech-strip">
+    <div class="section-label" style="text-align:center;margin-bottom:32px;">Công nghệ chiếu phim</div>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="tech-icon">🎬</div>
+        <div class="tech-name">IMAX</div>
+        <div class="tech-desc">Màn hình khổng lồ, âm thanh 12 kênh, độ nét 18K</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">🔊</div>
+        <div class="tech-name">Dolby Atmos</div>
+        <div class="tech-desc">Âm thanh vòm 3D, 64 loa độc lập, trải nghiệm sống động</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">💺</div>
+        <div class="tech-name">4DX</div>
+        <div class="tech-desc">Ghế chuyển động, hiệu ứng gió, nước, mùi hương</div>
+      </div>
+      <div class="tech-card">
+        <div class="tech-icon">👑</div>
+        <div class="tech-name">VIP Suite</div>
+        <div class="tech-desc">Ghế nằm da thật, menu ẩm thực, phục vụ tại chỗ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     SECTION: ƯU ĐÃI
+     =================================================================== -->
+<section class="promo-section" id="section-promo">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Chương trình khuyến mãi</div>
+      <h2>Ưu đãi <em>đặc biệt</em></h2>
+    </div>
+  </div>
+
+  <!-- Featured promo banner -->
+  <div class="promo-banner">
+    <div class="promo-banner-bg"></div>
+    <div class="promo-banner-content">
+      <div class="promo-banner-tag">⚡ Hôm nay duy nhất</div>
+      <div class="promo-banner-title">Flash Sale — Giảm 50%<br>toàn bộ vé thứ Tư</div>
+      <div class="promo-banner-sub">Áp dụng từ 09:00 – 23:59 hôm nay. Không cần mã.</div>
+      <div class="promo-countdown" id="countdown">
+        <div class="cd-block"><span id="cd-h">05</span><small>giờ</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><span id="cd-m">23</span><small>phút</small></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-block"><span id="cd-s">41</span><small>giây</small></div>
+      </div>
+      <button class="btn-primary" onclick="window.location.href='#section-showtime'">Đặt vé ngay</button>
+    </div>
+  </div>
+
+  <!-- Promo cards grid -->
+  <div class="promo-cards-grid">
+
+    <div class="promo-item-card">
+      <div class="promo-item-icon">🎟</div>
+      <div class="promo-item-title">Thứ 3 Vui Vẻ</div>
+      <div class="promo-item-desc">Giảm 40% tất cả vé vào mỗi thứ Ba. Áp dụng mọi phòng chiếu.</div>
+      <div class="promo-item-tag">Hàng tuần</div>
+      <button class="promo-use-btn" onclick="copyCode('T3VIEVE')">Dùng ngay</button>
+    </div>
+
+    <div class="promo-item-card highlight">
+      <div class="promo-item-icon">👑</div>
+      <div class="promo-item-title">Thành viên VIP</div>
+      <div class="promo-item-desc">Tặng 1 vé miễn phí sau mỗi 10 lần mua. Tích điểm đổi quà.</div>
+      <div class="promo-item-tag">Đặc quyền</div>
+      <button class="promo-use-btn" onclick="window.location.href='login.html'">Đăng ký ngay</button>
+    </div>
+
+    <div class="promo-item-card">
+      <div class="promo-item-icon">🍿</div>
+      <div class="promo-item-title">Combo Bắp & Nước</div>
+      <div class="promo-item-desc">1 bắp lớn + 2 nước ngọt chỉ 59.000đ khi mua kèm vé.</div>
+      <div class="promo-item-tag">Ẩm thực</div>
+      <button class="promo-use-btn" onclick="copyCode('COMBO59')">Sao chép mã</button>
+    </div>
+
+    <div class="promo-item-card">
+      <div class="promo-item-icon">🎂</div>
+      <div class="promo-item-title">Sinh Nhật Vàng</div>
+      <div class="promo-item-desc">Miễn phí 1 vé trong tháng sinh nhật khi xác thực tài khoản.</div>
+      <div class="promo-item-tag">Thành viên</div>
+      <button class="promo-use-btn" onclick="window.location.href='login.html'">Kích hoạt</button>
+    </div>
+
+    <div class="promo-item-card">
+      <div class="promo-item-icon">👫</div>
+      <div class="promo-item-title">Cặp Đôi Hạnh Phúc</div>
+      <div class="promo-item-desc">Mua 2 vé IMAX, giảm 30%. Ghế đôi VIP suite chỉ 280.000đ.</div>
+      <div class="promo-item-tag">Cuối tuần</div>
+      <button class="promo-use-btn" onclick="copyCode('COUPLE30')">Sao chép mã</button>
+    </div>
+
+    <div class="promo-item-card">
+      <div class="promo-item-icon">🎓</div>
+      <div class="promo-item-title">Ưu Đãi Học Sinh</div>
+      <div class="promo-item-desc">Giảm 20% khi xuất trình thẻ học sinh / sinh viên hợp lệ.</div>
+      <div class="promo-item-tag">Học sinh SV</div>
+      <button class="promo-use-btn" onclick="copyCode('STUDENT20')">Sao chép mã</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">LUMI<span>ÈRE</span></a>
+      <p>Trải nghiệm điện ảnh đẳng cấp với hệ thống âm thanh và hình ảnh hiện đại nhất Việt Nam.</p>
+      <div class="social-links">
+        <a href="#" class="social-link">f</a>
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">yt</a>
+        <a href="#" class="social-link">tk</a>
+      </div>
+    </div>
+    <div>
+      <h5>Khám phá</h5>
+      <ul>
+        <li><a href="#section-movies">Phim đang chiếu</a></li>
+        <li><a href="#section-movies">Phim sắp chiếu</a></li>
+        <li><a href="#section-showtime">Lịch chiếu</a></li>
+        <li><a href="#section-cinemas">Hệ thống rạp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Dịch vụ</h5>
+      <ul>
+        <li><a href="#">Đặt vé online</a></li>
+        <li><a href="#">Thẻ thành viên</a></li>
+        <li><a href="#">Thuê rạp riêng</a></li>
+        <li><a href="#">Quà tặng & Gift card</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Hỗ trợ</h5>
+      <ul>
+        <li><a href="#">Câu hỏi thường gặp</a></li>
+        <li><a href="#">Chính sách hoàn vé</a></li>
+        <li><a href="#">Điều khoản sử dụng</a></li>
+        <li><a href="#">Hotline: 1900 1234</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Lumière Cinema. Bảo lưu mọi quyền.</span>
+    <span>Hà Nội · TP. Hồ Chí Minh · Đà Nẵng</span>
+  </div>
+</footer>
+
+<!-- ===================================================================
+     MODAL: CHỌN GHẾ
+     =================================================================== -->
+<div class="modal-overlay" id="seat-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h3 id="modal-title">Tên phim</h3>
+        <p id="modal-info">Ngày · Giờ · Phòng</p>
+      </div>
+      <button class="close-btn" onclick="closeSeatModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="screen-wrap">
+        <div class="screen"></div>
+        <div class="screen-label">Màn hình</div>
+      </div>
+      <div class="seats-container" id="seats-container"></div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-seat avail"></div>Trống</div>
+        <div class="legend-item"><div class="legend-seat sel"></div>Đã chọn</div>
+        <div class="legend-item"><div class="legend-seat occ"></div>Đã bán</div>
+        <div class="legend-item"><div class="legend-seat vip-l"></div>VIP</div>
+      </div>
+      <div class="booking-summary">
+        <div class="summary-seats">
+          <strong id="selected-label">Chưa chọn ghế</strong>
+          <span id="selected-info">Nhấn vào ghế để chọn</span>
+        </div>
+        <div class="summary-price" id="total-price">0 ₫</div>
+        <button class="confirm-btn" onclick="confirmBooking()">Xác nhận đặt vé</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================================
+     MODAL: XEM TRAILER
+     =================================================================== -->
+<div class="modal-overlay" id="trailer-modal">
+  <div class="trailer-modal-inner">
+    <div class="trailer-header">
+      <span id="trailer-title">Xem Trailer</span>
+      <button class="close-btn" onclick="closeTrailer()">✕</button>
+    </div>
+    <div class="trailer-frame-wrap">
+      <iframe id="trailer-iframe"
+        src=""
+        title="Trailer"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ===================================================================
+     TOAST
+     =================================================================== -->
+<div class="toast" id="toast"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
