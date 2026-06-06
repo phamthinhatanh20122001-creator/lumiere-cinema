@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE — Đăng nhập Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-login-page">
+
+<div class="login-card">
+
+  <!-- Header -->
+  <div class="login-header">
+    <a href="index.html" class="login-logo">LUMI<span>ÈRE</span></a>
+    <div class="login-subtitle">Cổng quản trị hệ thống</div>
+  </div>
+
+  <!-- Body -->
+  <div class="login-body">
+
+    <div id="login-msg" class="login-msg"></div>
+
+    <form id="admin-login-form">
+
+      <div class="login-group">
+        <label for="admin-email">Email quản trị</label>
+        <input type="email" id="admin-email" class="login-input"
+          placeholder="admin@lumiere.vn" autocomplete="email">
+      </div>
+
+      <div class="login-group">
+        <label for="admin-password">Mật khẩu</label>
+        <div class="login-input-wrap">
+          <input type="password" id="admin-password" class="login-input"
+            placeholder="••••••••" autocomplete="current-password">
+          <button type="button" class="login-toggle-pw" id="toggle-pw">👁</button>
+        </div>
+      </div>
+
+      <label class="login-remember">
+        <input type="checkbox" id="remember-me"> Ghi nhớ đăng nhập
+      </label>
+
+      <button type="submit" class="login-submit">Đăng nhập</button>
+
+    </form>
+
+    <div class="login-footer">
+      <a href="index.html">← Quay về trang khách</a>
+    </div>
+
+    <!-- Demo hint -->
+    <div class="login-demo-hint">
+      Tài khoản demo:<br>
+      Email: <strong>admin@lumiere.vn</strong><br>
+      Mật khẩu: <strong>admin123</strong>
+    </div>
+
+  </div>
+</div>
+
+<div class="admin-toast" id="admin-toast"></div>
+
+<script>
+/* ── Seed admin account on first load ── */
+(function seedAdmin() {
+  const users = JSON.parse(localStorage.getItem('lumiere_users') || '[]');
+  if (!users.find(u => u.email === 'admin@lumiere.vn')) {
+    users.push({ name:'Admin Lumière', email:'admin@lumiere.vn', password:'admin123', role:'admin' });
+    localStorage.setItem('lumiere_users', JSON.stringify(users));
+  }
+})();
+
+/* ── Redirect if already logged in as admin ── */
+(function checkAlreadyLoggedIn() {
+  try {
+    const a = JSON.parse(localStorage.getItem('lumiere_admin'));
+    if (a) window.location.href = 'admin.html';
+  } catch {}
+})();
+
+/* ── Toast ── */
+function toast(msg, type='error') {
+  const t = document.getElementById('admin-toast');
+  t.textContent = msg;
+  t.style.borderColor = type === 'success' ? 'rgba(46,204,113,.3)' : 'rgba(230,57,70,.3)';
+  t.style.color = type === 'success' ? '#2ecc71' : '#e63946';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function showMsg(type, text) {
+  const el = document.getElementById('login-msg');
+  el.className = 'login-msg ' + type + ' show';
+  el.textContent = text;
+}
+
+/* ── Password toggle ── */
+document.getElementById('toggle-pw').addEventListener('click', function() {
+  const inp = document.getElementById('admin-password');
+  const show = inp.type === 'password';
+  inp.type = show ? 'text' : 'password';
+  this.textContent = show ? '🙈' : '👁';
+});
+
+/* ── Login form ── */
+document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const email    = document.getElementById('admin-email').value.trim();
+  const password = document.getElementById('admin-password').value;
+  const remember = document.getElementById('remember-me').checked;
+
+  if (!email || !password) {
+    showMsg('error', 'Vui lòng nhập đầy đủ email và mật khẩu.');
+    return;
+  }
+
+  /* Look up in lumiere_users */
+  const users = JSON.parse(localStorage.getItem('lumiere_users') || '[]');
+  const user  = users.find(u => u.email === email && u.password === password && u.role === 'admin');
+
+  if (!user) {
+    showMsg('error', 'Email hoặc mật khẩu không đúng, hoặc tài khoản không có quyền admin.');
+    return;
+  }
+
+  /* Save admin session */
+  const session = { name: user.name, email: user.email, role: 'admin' };
+  localStorage.setItem('lumiere_admin', JSON.stringify(session));
+
+  if (remember) {
+    localStorage.setItem('lumiere_admin_remember', JSON.stringify(session));
+  }
+
+  showMsg('success', 'Đăng nhập thành công! Đang chuyển hướng…');
+  setTimeout(() => window.location.href = 'admin.html', 1100);
+});
+
+/* ── Auto-fill remembered session ── */
+(function autoFill() {
+  try {
+    const r = JSON.parse(localStorage.getItem('lumiere_admin_remember'));
+    if (r) {
+      document.getElementById('admin-email').value = r.email || '';
+      document.getElementById('remember-me').checked = true;
+    }
+  } catch {}
+})();
+</script>
+</body>
+</html>

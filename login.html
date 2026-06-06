@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE — Đăng nhập</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-page">
+
+<div class="auth-wrapper">
+
+  <!-- ===== VISUAL PANEL (left) ===== -->
+  <div class="auth-visual">
+    <div class="auth-visual-bg"></div>
+    <div class="auth-visual-overlay"></div>
+    <div class="auth-visual-content">
+      <a href="index.html" class="logo" style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:0.3em;color:var(--gold);text-decoration:none;">
+        LUMI<span style="color:var(--cream)">ÈRE</span>
+      </a>
+      <div>
+        <div class="auth-tagline">
+          Điện ảnh<br><em>đỉnh cao</em><br>trong tầm tay
+        </div>
+        <p class="auth-sub">
+          Đăng nhập để đặt vé, lưu lịch sử xem phim và nhận ưu đãi độc quyền từ Lumière.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FORM PANEL (right) ===== -->
+  <div class="auth-panel">
+
+    <a href="index.html" class="auth-logo">LUMI<span>ÈRE</span></a>
+
+    <!-- Tabs -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-target="form-login">Đăng nhập</button>
+      <button class="auth-tab"        data-target="form-register">Đăng ký</button>
+    </div>
+
+    <!-- ===== LOGIN FORM ===== -->
+    <form class="auth-form active" id="login-form">
+
+      <div id="login-msg" class="form-msg"></div>
+
+      <div class="form-group">
+        <label class="form-label" for="login-email">Email</label>
+        <input class="form-input" type="email" id="login-email"
+          placeholder="example@email.com" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="login-password">Mật khẩu</label>
+        <div class="form-input-wrap">
+          <input class="form-input" type="password" id="login-password"
+            placeholder="••••••••" autocomplete="current-password">
+          <button type="button" class="toggle-pw">👁</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="form-check">
+          <input type="checkbox"> Ghi nhớ đăng nhập
+        </label>
+        <a href="#" class="form-link">Quên mật khẩu?</a>
+      </div>
+
+      <button type="submit" class="submit-btn">Đăng nhập</button>
+
+      <div class="divider">hoặc tiếp tục với</div>
+
+      <div class="social-btns">
+        <button type="button" class="social-btn" onclick="demoLogin('google')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          Google
+        </button>
+        <button type="button" class="social-btn" onclick="demoLogin('facebook')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#1877F2">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Facebook
+        </button>
+      </div>
+
+      <div class="auth-switch">
+        Chưa có tài khoản?
+        <a href="#" onclick="switchToRegister(event)">Đăng ký ngay</a>
+      </div>
+
+    </form>
+
+    <!-- ===== REGISTER FORM ===== -->
+    <form class="auth-form" id="form-register">
+
+      <div id="register-msg" class="form-msg"></div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-name">Họ và tên</label>
+        <input class="form-input" type="text" id="reg-name"
+          placeholder="Nguyễn Văn A" autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-email">Email</label>
+        <input class="form-input" type="email" id="reg-email"
+          placeholder="example@email.com" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-password">Mật khẩu</label>
+        <div class="form-input-wrap">
+          <input class="form-input" type="password" id="reg-password"
+            placeholder="Ít nhất 6 ký tự" autocomplete="new-password">
+          <button type="button" class="toggle-pw">👁</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="reg-password2">Xác nhận mật khẩu</label>
+        <div class="form-input-wrap">
+          <input class="form-input" type="password" id="reg-password2"
+            placeholder="Nhập lại mật khẩu" autocomplete="new-password">
+          <button type="button" class="toggle-pw">👁</button>
+        </div>
+      </div>
+
+      <label class="form-check" style="margin-bottom:28px;font-size:0.78rem;color:var(--muted)">
+        <input type="checkbox" id="reg-agree">
+        Tôi đồng ý với <a href="#" class="form-link">điều khoản sử dụng</a>
+      </label>
+
+      <button type="submit" class="submit-btn">Tạo tài khoản</button>
+
+      <div class="auth-switch">
+        Đã có tài khoản?
+        <a href="#" onclick="switchToLogin(event)">Đăng nhập</a>
+      </div>
+
+    </form>
+
+  </div><!-- /auth-panel -->
+</div><!-- /auth-wrapper -->
+
+<script src="main.js"></script>
+<script>
+  /* Quick helpers for switching tabs from link clicks */
+  function switchToRegister(e) {
+    e.preventDefault();
+    document.querySelectorAll('.auth-tab')[1].click();
+  }
+  function switchToLogin(e) {
+    e.preventDefault();
+    document.querySelectorAll('.auth-tab')[0].click();
+  }
+
+  /* Demo social login (simulated) */
+  function demoLogin(provider) {
+    const names = { google: 'Người dùng Google', facebook: 'Người dùng Facebook' };
+    const user  = { name: names[provider], email: provider + '@demo.com' };
+    localStorage.setItem('lumiere_user', JSON.stringify(user));
+
+    const msg = document.getElementById('login-msg');
+    if (msg) {
+      msg.className = 'form-msg success show';
+      msg.textContent = 'Đăng nhập thành công! Đang chuyển hướng…';
+    }
+    setTimeout(() => window.location.href = 'index.html', 1000);
+  }
+
+  /* Register form: validate agree checkbox */
+  document.getElementById('form-register')
+    .addEventListener('submit', function(e) {
+      const agree = document.getElementById('reg-agree');
+      if (agree && !agree.checked) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const msg = document.getElementById('register-msg');
+        if (msg) {
+          msg.className = 'form-msg error show';
+          msg.textContent = 'Vui lòng đồng ý với điều khoản sử dụng.';
+        }
+      }
+    }, true);
+</script>
+</body>
+</html>
